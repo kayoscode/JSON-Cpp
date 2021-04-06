@@ -1,0 +1,10 @@
+^C:\USERS\BRYCE\DOCUMENTS\JSON_PARSER\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/Bryce/Documents/json_parser -BC:/Users/Bryce/Documents/json_parser/build --check-stamp-file C:/Users/Bryce/Documents/json_parser/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

@@ -1,0 +1,2 @@
+cmake --build ..
+.\JsonParser.exe
