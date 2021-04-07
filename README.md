@@ -1,7 +1,7 @@
-#Welcome to Json Cpp
-###A simple JSON file parser for C++
+# Welcome to Json Cpp
+### A simple JSON file parser for C++
 
-##Usage in a project:
+## Usage in a project:
 
 Option 1 (CMake):
 1. Navigate to your project directory
