@@ -8,7 +8,7 @@ class JsonParser {
     public:
         JsonParser(char* json, uint32_t size);
 
-        void parseJson(JsonObject* object);
+        void parseJson(JsonValue* object);
 
         ~JsonParser() {
 

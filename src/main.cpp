@@ -4,14 +4,14 @@
 #include "JsonParser.h"
 
 int main() {
-    char json[] = "{\"elements\":[21.2,\"String1!\",20,\"true\",\"false\",\"null\"], \"e\":{\"h\":\"String!\"}}";
+    char json[] = "[1, 2, 3, 4, 5]";
     JsonParser parser(json, sizeof(json)/sizeof(json[0]));
 
-    JsonObject obj;
-    parser.parseJson(&obj);
+    JsonValue val;
+    parser.parseJson(&val);
 
     std::stringstream output;
-    obj.createJsonString(output);
+    val.createJsonString(output);
 
     std::cout << output.str();
 

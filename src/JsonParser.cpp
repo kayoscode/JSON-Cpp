@@ -71,7 +71,7 @@ JsonLexer::Token* loadJsonValue(JsonLexer& lexer, JsonLexer::Token* token, JsonV
         return token;
     }
     else {
-        //TODO: throw error
+        std::cout << "Valid L Value expected\n";
     }
 
     return nullptr;
@@ -87,7 +87,7 @@ JsonLexer::Token* loadObjectValue(JsonLexer& lexer, JsonLexer::Token* token, Jso
             token = lexer.getNextToken();
 
             if(token == nullptr) {
-                //TODO: throw error
+                std::cout << "Invalid token\n";
             }
 
             //load the value, for now, just print the lexeme
@@ -95,7 +95,7 @@ JsonLexer::Token* loadObjectValue(JsonLexer& lexer, JsonLexer::Token* token, Jso
         }
     }
     else {
-        //TODO: throw error
+        std::cout << "Invalid token\n";
     }
 
     return token;
@@ -109,7 +109,7 @@ JsonLexer::Token* loadJsonArray(JsonLexer& lexer, JsonLexer::Token* token, JsonA
             token = lexer.getNextToken();
 
             if(token == nullptr) {
-                //TODO: throw error
+                std::cout << "Invalid token\n";
             }
         }
 
@@ -135,7 +135,7 @@ JsonLexer::Token* loadJsonObject(JsonLexer& lexer, JsonLexer::Token* token, Json
             token = lexer.getNextToken();
 
             if(token == nullptr) {
-                //TODO: throw error
+                std::cout << "Invalid token\n";
             }
         }
 
@@ -149,25 +149,22 @@ JsonLexer::Token* loadJsonObject(JsonLexer& lexer, JsonLexer::Token* token, Json
             return lexer.getNextToken();
         }
         else {
-            //TODO: throw error
+            std::cout << "Comma or string expected!\n";
+            return lexer.getNextToken();
         }
     }
 
     return token;
 }
 
-void JsonParser::parseJson(JsonObject* object) {
+void JsonParser::parseJson(JsonValue* value) {
     JsonLexer::Token* token = lexer.getNextToken();
 
     if(token != nullptr) {
-        if(token->code == OBRC_CODE) {
-            loadJsonObject(lexer, token, object);
-        }
-        else {
-            //TODO: throw error
-        }
+        loadJsonValue(lexer, token, value);
     }
     else {
         //TODO: throw error
+        std::cout << "Syntax error\n";
     }
 }
