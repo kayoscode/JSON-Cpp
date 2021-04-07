@@ -18,14 +18,8 @@ JsonValue::JsonValue(JsonArray* arr)
     this->type = JsonValueType::Array;
 }
 
-JsonValue::JsonValue(const std::wstring& str) 
-    :stringValue(str)
-{
-    this->type = JsonValueType::String;
-}
-
 JsonValue::JsonValue(const std::string& str)
-    :stringValue(str.begin(), str.end())
+    :stringValue(str)
 {
     type = JsonValueType::String;
 }
@@ -83,8 +77,16 @@ JsonValue& JsonValue::operator=(const JsonValue& value) {
     return *this;
 }
 
-void JsonObject::createJsonString(std::ostream& output) {
+void JsonObject::createJsonString(std::ostream& output, bool beautiful, int depth) {
     output << '{';
+
+    if(beautiful) {
+        output << '\n';
+
+        for(int i = 0; i < depth; i++) {
+            output << "  ";
+        }
+    }
 
     for(std::map<std::string, JsonValue*>::iterator i = keys.begin(); i != keys.end(); ++i) {
         output << '"';
@@ -92,31 +94,66 @@ void JsonObject::createJsonString(std::ostream& output) {
         output << '"';
 
         output << ':';
-        i->second->createJsonString(output);
+
+        if(beautiful) {
+            output << ' ';
+        }
+
+        i->second->createJsonString(output, beautiful, depth);
 
         if(std::next(i) != keys.end()) {
             output << ',';
+        }
+        else {
+            depth--;
+        }
+
+        if(beautiful) {
+            output << '\n';
+
+            for(int i = 0; i < depth; i++) {
+                output << "  ";
+            }
         }
     }
 
     output << '}';
 }
 
-void JsonArray::createJsonString(std::ostream& output) {
+void JsonArray::createJsonString(std::ostream& output, bool beautiful, int depth) {
     output << '[';
 
+    if(beautiful) {
+        output << '\n';
+
+        for(int i = 0; i < depth; i++) {
+            output << "  ";
+        }
+    }
+
     for(int i = 0; i < values.size(); ++i) {
-        values[i]->createJsonString(output);
+        values[i]->createJsonString(output, beautiful, depth);
 
         if(i < values.size() - 1) {
             output << ',';
+        }
+        else {
+            depth--;
+        }
+
+        if(beautiful) {
+            output << '\n';
+
+            for(int i = 0; i < depth; i++) {
+                output << "  ";
+            }
         }
     }
 
     output << ']';
 }
 
-void JsonValue::createJsonString(std::ostream& output) {
+void JsonValue::createJsonString(std::ostream& output, bool beautiful, int depth) {
     switch(type) {
         case JsonValueType::None:
             break;
@@ -124,7 +161,27 @@ void JsonValue::createJsonString(std::ostream& output) {
             char c;
             output << '"';
             for(int i = 0; i < stringValue.size(); ++i) {
-                output << (char)stringValue[i];
+                if(stringValue[i] == '\\') {
+                    output << "\\\\";
+                }
+                else if(stringValue[i] == '\b') {
+                    output << "\\b";
+                }
+                else if(stringValue[i] == '\n') {
+                    output << "\\n";
+                }
+                else if(stringValue[i] == '\"') {
+                    output << "\\\"";
+                }
+                else if(stringValue[i] == '\t') {
+                    output << "\\t";
+                }
+                else if(stringValue[i] == '\r') {
+                    output << "\\r";
+                }
+                else {
+                    output << (char)stringValue[i];
+                }
             }
             output << '"';
             break;
@@ -135,10 +192,10 @@ void JsonValue::createJsonString(std::ostream& output) {
             output << floatValue;
             break;
         case JsonValueType::Object:
-            objectValue->createJsonString(output);
+            objectValue->createJsonString(output, beautiful, depth + 1);
             break;
         case JsonValueType::Array:
-            arrayValue->createJsonString(output);
+            arrayValue->createJsonString(output, beautiful, depth + 1);
             break;
         case JsonValueType::Boolean:
             output << (booleanValue? "\"true\"" : "\"false\"");
@@ -159,14 +216,41 @@ void JsonValue::updateValue(JsonArray* arr) {
     arrayValue = arr;
 }
 
-void JsonValue::updateValue(const std::wstring& str) {
-    type = JsonValueType::String;
-    stringValue = str;
-}
-
 void JsonValue::updateValue(const std::string& str) {
     type = JsonValueType::String;
-    stringValue = std::wstring(str.begin(), str.end());
+
+    for(int i = 0; i < str.size(); ++i) {
+        if(str[i] == '\\') {
+            i++;
+
+            if(i < str.size()) {
+                if(str[i] == '\\') {
+                    stringValue += '\\';
+                }
+                else if(str[i] == 'b') {
+                    stringValue += '\b';
+                }
+                else if(str[i] == 'n') {
+                    stringValue += '\n';
+                }
+                else if(str[i] == '"') {
+                    stringValue += '\"';
+                }
+                else if(str[i] == 't') {
+                    stringValue += '\t';
+                }
+                else if(str[i] == 'r') {
+                    stringValue += '\r';
+                }
+            }
+            else {
+                stringValue += '\\';
+            }
+        }
+        else {
+            stringValue += str[i];
+        }
+    }
 }
 
 void JsonValue::updateValue(int integer) {

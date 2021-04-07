@@ -109,6 +109,9 @@ void loadString(char* json, uint32_t& index, uint32_t size, JsonLexer::Token* ne
     ch = json[index];
 
     while(!isStrStart(ch) && !isEOF(index, size)) {
+        if(ch == '\\') {
+            index++;
+        }
         if(ch != '\n') {
             index++;
             ch = json[index];

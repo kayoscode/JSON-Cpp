@@ -113,7 +113,7 @@ JsonLexer::Token* loadJsonArray(JsonLexer& lexer, JsonLexer::Token* token, JsonA
             }
         }
 
-        if(token->code == CBRK_CODE) {
+        if(token->code == CBRC_CODE || token->code == CBRK_CODE) {
             return lexer.getNextToken();
         }
         else {

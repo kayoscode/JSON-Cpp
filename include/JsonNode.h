@@ -43,6 +43,13 @@ class JsonObject {
         }
 
         /**
+         * Operator if you want to use it
+         * */
+        inline JsonValue* operator[](const std::string& name) {
+            return lookupNode(name);
+        }
+
+        /**
          * Searches for the key,
          * returns null if not found
          * @param name name of the node
@@ -75,7 +82,7 @@ class JsonObject {
         /**
          * Creates a json file in a string format
          * */
-        void createJsonString(std::ostream& output);
+        void createJsonString(std::ostream& output, bool beautiful = false, int depth = 0);
 
     private:
         std::map<std::string, JsonValue*> keys;
@@ -105,6 +112,10 @@ class JsonArray {
             return values.size();
         }
 
+        JsonValue* operator[](int index) {
+            return get(index);
+        }
+
         /**
          * return the value at an index
          * */
@@ -125,7 +136,7 @@ class JsonArray {
         /**
          * Creates a file in a string format
          * */
-        void createJsonString(std::ostream& output);
+        void createJsonString(std::ostream& output, bool beautiful = false, int depth = 0);
 
     private:
         std::vector<JsonValue*> values;
@@ -154,7 +165,6 @@ struct JsonValue {
     /**
      * Initialize with string
      * */
-    JsonValue(const std::wstring& str);
     JsonValue(const std::string& str);
 
     /**
@@ -177,7 +187,7 @@ struct JsonValue {
     /**
      * Creates a json file in a string format
      * */
-    void createJsonString(std::ostream& output);
+    void createJsonString(std::ostream& output, bool beautiful = false, int depth = 0);
 
     /**
      * Equals operator
@@ -189,7 +199,6 @@ struct JsonValue {
      * */
     void updateValue(JsonObject* object);
     void updateValue(JsonArray* arr);
-    void updateValue(const std::wstring& str);
     void updateValue(const std::string& str);
     void updateValue(int integer);
     void updateValue(double flt);
@@ -200,7 +209,7 @@ struct JsonValue {
      * */
     JsonObject* objectValue;
     JsonArray* arrayValue;
-    std::wstring stringValue;
+    std::string stringValue;
     int numberValue;
     double floatValue;
     bool booleanValue;
