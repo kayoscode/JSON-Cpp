@@ -3,6 +3,7 @@
 
 #include <iostream>
 
+//load the entire json file into memory at once
 char* loadFile(const std::string& name, uint32_t& size) {
     char* ret;
     std::ifstream inputFile(name, std::ios::in | std::ios::binary | std::ios::ate);
@@ -18,6 +19,7 @@ char* loadFile(const std::string& name, uint32_t& size) {
     return ret;
 }
 
+//load the json file and convert to json format
 JsonFile::JsonFile(const std::string& name) :
     values(nullptr)
 {
@@ -27,6 +29,7 @@ JsonFile::JsonFile(const std::string& name) :
     delete[] fileContents;
 }
 
+//save the json as a file
 void JsonFile::save(const std::string& name, bool beautiful) {
     //write contents to outputStream
     std::ofstream outputFile(name, std::ios::out);
