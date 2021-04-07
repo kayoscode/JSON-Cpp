@@ -80,6 +80,25 @@ class JsonObject {
         }
 
         /**
+         * Removes a key and value from the object
+         * */
+        inline bool removeValue(const std::string& name) {
+            if(keys.find(name) != keys.end()) {
+                return false;
+            }
+
+            keys.erase(name);
+            return true;
+        }
+
+        /**
+         * @return the number of key value pairs
+         * */
+        int size() {
+            return keys.size();
+        }
+
+        /**
          * Creates a json file in a string format
          * */
         void createJsonString(std::ostream& output, bool beautiful = false, int depth = 0);
@@ -130,6 +149,19 @@ class JsonArray {
          * */
         bool addElement(JsonValue* value) {
             values.push_back(value);
+            return true;
+        }
+
+        /**
+         * Removes an element from the array
+         * @return true if a value was removed.
+         * */
+        inline bool removeElement(int index) {
+            if(index >= values.size() && index >= 0) {
+                return false;
+            }
+
+            values.erase(values.begin() + index);
             return true;
         }
 
