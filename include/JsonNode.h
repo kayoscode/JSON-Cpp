@@ -101,14 +101,14 @@ class JsonArray {
         /**
          * return the length of the array
          * */
-        inline int length() {
+        inline int size() {
             return values.size();
         }
 
         /**
          * return the value at an index
          * */
-        JsonValue* operator[](int index) {
+        JsonValue* get(int index) {
             return values[index];
         }
 
