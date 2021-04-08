@@ -10,7 +10,7 @@ Option 1 (CMake):
 ```
 add_subdirectory(JSON-Cpp) 
 target_link_libraries(${PROJ_NAME}
-    JSON-Cpp
+    JsonParser
 )
 target_include_directories("${PROJ_NAME}" PRIVATE ${PROJECT_SOURCE_DIR}/JSON-Cpp/include)
 ```
