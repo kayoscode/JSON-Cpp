@@ -6,6 +6,18 @@ JsonValue::~JsonValue() {
     delete arrayValue;
 }
 
+JsonObject::~JsonObject() {
+    for(std::map<std::string, JsonValue*>::iterator i = keys.begin(); i != keys.end(); ++i) {
+	    delete i->second;
+    }
+}
+
+JsonArray::~JsonArray() {
+    for(int i = 0; i < values.size(); ++i) {
+        delete values[i];
+    }
+}
+
 JsonValue::JsonValue(JsonObject* object) 
     :objectValue(object)
 {

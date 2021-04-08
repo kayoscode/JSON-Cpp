@@ -28,11 +28,7 @@ class JsonObject {
 
         }
 
-        ~JsonObject() {
-            for(std::map<std::string, JsonValue*>::iterator i = keys.begin(); i != keys.end(); ++i) {
-                delete i->second;
-            }
-        }
+        ~JsonObject();
 
         /**
          * Return whether the node exists or not
@@ -119,11 +115,8 @@ class JsonArray {
         /**
          * Destructor
          * */
-        ~JsonArray() {
-            for(int i = 0; i < values.size(); ++i) {
-                delete values[i];
-            }
-        }
+        ~JsonArray();
+        
         /**
          * return the length of the array
          * */
