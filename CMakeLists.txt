@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.0)
 
-SET(PROJ_NAME JsonParser)
+SET(PROJ_NAME Json-CPP)
 project(${PROJ_NAME})
 
 file(GLOB SRC 
