@@ -9,7 +9,7 @@ JsonParser::JsonParser(char* file, uint32_t size)
     :lexer(file, size)
 {}
 
-void loadJsonValue(JsonLexer& lexer, JsonLexer::Token* token, JsonValue* newValue) {
+static void loadJsonValue(JsonLexer& lexer, JsonLexer::Token* token, JsonValue* newValue) {
     if(token->type == JsonLexer::TokenType::Float) {
         //we know it's a valid float, so we can use the lexeme
         char tmp = *token->end;
@@ -82,7 +82,7 @@ void loadJsonValue(JsonLexer& lexer, JsonLexer::Token* token, JsonValue* newValu
     token->end = nullptr;
 }
 
-void loadObjectValue(JsonLexer& lexer, JsonLexer::Token* token, JsonValue* value, std::string& name) {
+static void loadObjectValue(JsonLexer& lexer, JsonLexer::Token* token, JsonValue* value, std::string& name) {
     //we already know the incoming token is a string
     name = std::string(token->begin, token->end);
     lexer.getNextToken(*token);
@@ -104,7 +104,7 @@ void loadObjectValue(JsonLexer& lexer, JsonLexer::Token* token, JsonValue* value
     }
 }
 
-void loadJsonArray(JsonLexer& lexer, JsonLexer::Token* token, JsonArray* obj) {
+static void loadJsonArray(JsonLexer& lexer, JsonLexer::Token* token, JsonArray* obj) {
     lexer.getNextToken(*token);
 
     while(token->begin != nullptr && token->end != nullptr) {
@@ -129,7 +129,7 @@ void loadJsonArray(JsonLexer& lexer, JsonLexer::Token* token, JsonArray* obj) {
     }
 }
 
-void loadJsonObject(JsonLexer& lexer, JsonLexer::Token* token, JsonObject* obj) {
+static void loadJsonObject(JsonLexer& lexer, JsonLexer::Token* token, JsonObject* obj) {
     lexer.getNextToken(*token);
 
     while(token->begin != nullptr && token->end != nullptr) {
