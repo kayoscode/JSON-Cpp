@@ -42,7 +42,7 @@ bool isAlphaNum(char ch) {
 }
 
 bool isStrStart(char ch) {
-    return ch == '"' || ch == '\'';
+    return ch == '"';
 }
 
 char getIntegerNum(char* json, uint32_t& index, uint32_t size) {
