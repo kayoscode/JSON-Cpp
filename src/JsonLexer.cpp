@@ -151,30 +151,30 @@ bool loadReserve(char* json, uint32_t& index, uint32_t size, JsonLexer::Token* n
     return false;
 }
 
-JsonLexer::Token* JsonLexer::getNextToken() {
-    Token* ret = new Token();
-
+bool JsonLexer::getNextToken(JsonLexer::Token& ret) {
     skipWhiteSpace(json, index, size);
     char ch = json[index];
 
     if(isNum(ch) || ch == '-') {
         //load number
-        loadNumber(json, index, size, ret);
+        loadNumber(json, index, size, &ret);
     }
     else if(isStrStart(ch)) {
         //load string
-        loadString(json, index, size, ret);
+        loadString(json, index, size, &ret);
     }
     else {
         //if it's a reserve, add it, otherwise there is an error :D
-        if(!loadReserve(json, index, size, ret)) {
-            return nullptr;
+        if(!loadReserve(json, index, size, &ret)) {
+            ret.begin = nullptr;
+            ret.end = nullptr;
+            return false;
         }
     }
 
-    if(ret->begin == NULL || ret->end == NULL) {
-        return nullptr;
+    if(ret.begin == nullptr || ret.end == nullptr) {
+        return false;
     }
 
-    return ret;
+    return true;
 }

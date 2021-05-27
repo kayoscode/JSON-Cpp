@@ -48,7 +48,7 @@ class JsonLexer {
             }
         };
 
-        Token* getNextToken();
+        bool getNextToken(JsonLexer::Token& nextToken);
 
     private:
         char* json;
