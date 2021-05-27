@@ -94,6 +94,10 @@ class JsonObject {
             return (int)keys.size();
         }
 
+        const std::map<std::string, JsonValue*>& getKeys() {
+            return keys;
+        }
+
         /**
          * Creates a json file in a string format
          * */
