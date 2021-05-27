@@ -152,6 +152,12 @@ bool JsonLexer::getNextToken(JsonLexer::Token& ret) {
     skipWhiteSpace(json, index, size);
     char ch = json[index];
 
+    if(index >= size) {
+        ret.begin = nullptr;
+        ret.end = nullptr;
+        return false;
+    }
+
     if(isNum(ch) || ch == '-') {
         //load number
         loadNumber(json, index, size, &ret);
