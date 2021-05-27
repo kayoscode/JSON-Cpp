@@ -87,7 +87,7 @@ void loadObjectValue(JsonLexer& lexer, JsonLexer::Token* token, JsonValue* value
     name = std::string(token->begin, token->end);
     lexer.getNextToken(*token);
 
-    if(token != nullptr) {
+    if(token->begin != nullptr && token->end != nullptr) {
         if(token->code == COLON_CODE) {
             lexer.getNextToken(*token);
 
@@ -107,7 +107,7 @@ void loadObjectValue(JsonLexer& lexer, JsonLexer::Token* token, JsonValue* value
 void loadJsonArray(JsonLexer& lexer, JsonLexer::Token* token, JsonArray* obj) {
     lexer.getNextToken(*token);
 
-    while(token != nullptr) {
+    while(token->begin != nullptr && token->end != nullptr) {
         if(token->code == COMMA_CODE) {
             lexer.getNextToken(*token);
 
@@ -132,7 +132,7 @@ void loadJsonArray(JsonLexer& lexer, JsonLexer::Token* token, JsonArray* obj) {
 void loadJsonObject(JsonLexer& lexer, JsonLexer::Token* token, JsonObject* obj) {
     lexer.getNextToken(*token);
 
-    while(token != nullptr) {
+    while(token->begin != nullptr && token->end != nullptr) {
         if(token->code == COMMA_CODE) {
             lexer.getNextToken(*token);
 

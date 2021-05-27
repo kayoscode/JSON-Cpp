@@ -4,7 +4,7 @@
 #include <iostream>
 
 //load the entire json file into memory at once
-char* loadFile(const std::string& name, uint32_t& size) {
+static char* loadFile(const std::string& name, uint32_t& size) {
     char* ret;
     std::ifstream inputFile(name, std::ios::in | std::ios::binary | std::ios::ate);
     size = (uint32_t)inputFile.tellg();

@@ -3,7 +3,7 @@
 #include <map>
 #include <iostream>
 
-std::map<char, int> reserves {
+static std::map<char, int> reserves {
     { '{', OBRC_CODE },
     { '}', CBRC_CODE },
     { '[', OBRK_CODE },
@@ -12,15 +12,15 @@ std::map<char, int> reserves {
     { ',', COMMA_CODE },
 };
 
-bool isEOF(uint32_t index, uint32_t size) {
+static bool isEOF(uint32_t index, uint32_t size) {
     return index >= size;
 }
 
-bool isWhiteSpace(char ch) {
+static bool isWhiteSpace(char ch) {
     return ch == ' ' || ch == '\n' || ch == '\r' || ch == 9;
 }
 
-void skipWhiteSpace(char* json, uint32_t& index, uint32_t size) {
+static void skipWhiteSpace(char* json, uint32_t& index, uint32_t size) {
     char ch = json[index];
 
     while(isWhiteSpace(ch) && !isEOF(index, size)) {
@@ -29,23 +29,23 @@ void skipWhiteSpace(char* json, uint32_t& index, uint32_t size) {
     }
 }
 
-bool isAlpha(char ch) {
+static bool isAlpha(char ch) {
     return (ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z');
 }
 
-bool isNum(char ch) {
+static bool isNum(char ch) {
     return ch >= '0' && ch <= '9';
 }
 
-bool isAlphaNum(char ch) {
+static bool isAlphaNum(char ch) {
     return isAlpha(ch) || isNum(ch);
 }
 
-bool isStrStart(char ch) {
+static bool isStrStart(char ch) {
     return ch == '"';
 }
 
-char getIntegerNum(char* json, uint32_t& index, uint32_t size) {
+static char getIntegerNum(char* json, uint32_t& index, uint32_t size) {
     char ch = json[index];
 
     while(isNum(ch) && !isEOF(index, size)) {
@@ -56,7 +56,7 @@ char getIntegerNum(char* json, uint32_t& index, uint32_t size) {
     return ch;
 }
 
-void loadNumber(char* json, uint32_t& index, uint32_t size, JsonLexer::Token* newToken) {
+static void loadNumber(char* json, uint32_t& index, uint32_t size, JsonLexer::Token* newToken) {
     char ch;
     bool flt = false;
     newToken->begin = json + index;
@@ -99,10 +99,7 @@ void loadNumber(char* json, uint32_t& index, uint32_t size, JsonLexer::Token* ne
     newToken->end = json + index;
 }
 
-/**
- * TODO: ADD ESCAPE CHARACTERS
- * */
-void loadString(char* json, uint32_t& index, uint32_t size, JsonLexer::Token* newToken) {
+static void loadString(char* json, uint32_t& index, uint32_t size, JsonLexer::Token* newToken) {
     char ch;
     char endingQuote = json[index];
     index++;
@@ -134,7 +131,7 @@ void loadString(char* json, uint32_t& index, uint32_t size, JsonLexer::Token* ne
     }
 }
 
-bool loadReserve(char* json, uint32_t& index, uint32_t size, JsonLexer::Token* newToken) {
+static bool loadReserve(char* json, uint32_t& index, uint32_t size, JsonLexer::Token* newToken) {
     char ch = json[index];
     newToken->begin = json + index;
     index++;
