@@ -91,7 +91,7 @@ class JsonObject {
          * @return the number of key value pairs
          * */
         int size() {
-            return keys.size();
+            return (int)keys.size();
         }
 
         /**
@@ -121,7 +121,7 @@ class JsonArray {
          * return the length of the array
          * */
         inline int size() {
-            return values.size();
+            return (int)values.size();
         }
 
         JsonValue* operator[](int index) {

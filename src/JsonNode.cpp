@@ -170,7 +170,6 @@ void JsonValue::createJsonString(std::ostream& output, bool beautiful, int depth
         case JsonValueType::None:
             break;
         case JsonValueType::String:
-            char c;
             output << '"';
             for(int i = 0; i < stringValue.size(); ++i) {
                 if(stringValue[i] == '\\') {

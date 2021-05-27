@@ -7,7 +7,7 @@
 char* loadFile(const std::string& name, uint32_t& size) {
     char* ret;
     std::ifstream inputFile(name, std::ios::in | std::ios::binary | std::ios::ate);
-    size = inputFile.tellg();
+    size = (uint32_t)inputFile.tellg();
     inputFile.seekg(0, std::ios::beg);
 
     ret = new char[size + 1];
