@@ -42,7 +42,7 @@ bool isAlphaNum(char ch) {
 }
 
 bool isStrStart(char ch) {
-    return ch == '"';
+    return ch == '"' || ch == '\'';
 }
 
 char getIntegerNum(char* json, uint32_t& index, uint32_t size) {
@@ -104,11 +104,12 @@ void loadNumber(char* json, uint32_t& index, uint32_t size, JsonLexer::Token* ne
  * */
 void loadString(char* json, uint32_t& index, uint32_t size, JsonLexer::Token* newToken) {
     char ch;
+    char endingQuote = json[index];
     index++;
     newToken->begin = json + index;
     ch = json[index];
 
-    while(!isStrStart(ch) && !isEOF(index, size)) {
+    while(ch != endingQuote && !isEOF(index, size)) {
         if(ch == '\\') {
             index++;
         }
