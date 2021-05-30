@@ -1,9 +1,9 @@
 #include "JsonParser.h"
 
-void loadJsonValue(JsonLexer& lexer, JsonLexer::Token* token, JsonValue* value);
-void loadJsonObject(JsonLexer& lexer, JsonLexer::Token* token, JsonObject* obj);
-void loadJsonArray(JsonLexer& lexer, JsonLexer::Token* token, JsonArray* obj);
-void loadObjectValue(JsonLexer& lexer, JsonLexer::Token* token, JsonValue* value, std::string& name);
+static void loadJsonValue(JsonLexer& lexer, JsonLexer::Token* token, JsonValue* value);
+static void loadJsonObject(JsonLexer& lexer, JsonLexer::Token* token, JsonObject* obj);
+static void loadJsonArray(JsonLexer& lexer, JsonLexer::Token* token, JsonArray* obj);
+static void loadObjectValue(JsonLexer& lexer, JsonLexer::Token* token, JsonValue* value, std::string& name);
 
 JsonParser::JsonParser(char* file, uint32_t size) 
     :lexer(file, size)
