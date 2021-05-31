@@ -19,9 +19,14 @@ class JsonFile {
 
         void save(const std::string& newFile, bool beautiful);
 
+        bool isLoadSuccessful() {
+            return loadSuccessful;
+        }
+
     private:
         void loadJson(char* fileContents, uint32_t size);
         JsonValue* values;
+        bool loadSuccessful;
 };
 
 #endif

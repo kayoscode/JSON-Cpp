@@ -7,6 +7,11 @@
 static char* loadFile(const std::string& name, uint32_t& size) {
     char* ret;
     std::ifstream inputFile(name, std::ios::in | std::ios::binary | std::ios::ate);
+
+    if(!inputFile.is_open()) {
+        return nullptr;
+    }
+
     size = (uint32_t)inputFile.tellg();
     inputFile.seekg(0, std::ios::beg);
 
@@ -25,8 +30,15 @@ JsonFile::JsonFile(const std::string& name) :
 {
     uint32_t size = 0;
     char* fileContents = loadFile(name, size);
-    loadJson(fileContents, size);
-    delete[] fileContents;
+
+    if(fileContents == nullptr) {
+        loadSuccessful = false;
+    }
+    else {
+        loadSuccessful = true;
+        loadJson(fileContents, size);
+        delete[] fileContents;
+    }
 }
 
 //save the json as a file
