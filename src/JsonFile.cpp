@@ -1,8 +1,6 @@
 #include "JsonFile.h"
 #include "JsonParser.h"
 
-#include <iostream>
-
 //load the entire json file into memory at once
 static char* loadFile(const std::string& name, uint32_t& size) {
     char* ret;
