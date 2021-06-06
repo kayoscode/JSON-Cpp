@@ -145,7 +145,11 @@ static void loadJsonObject(JsonLexer& lexer, JsonLexer::Token* token, JsonObject
             std::string name;
             JsonValue* newValue = new JsonValue();
             loadObjectValue(lexer, token, newValue, name);
-            obj->addValue(name, newValue);
+
+            //avoid memory leak
+            if(!obj->addValue(name, newValue)) {
+                delete newValue;
+            }
         }
         else if(token->code == CBRC_CODE) {
             lexer.getNextToken(*token);

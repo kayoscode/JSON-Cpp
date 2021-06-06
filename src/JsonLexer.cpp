@@ -121,7 +121,7 @@ static void loadString(char* json, uint32_t& index, uint32_t size, JsonLexer::To
 
     if(ch != '\n') {
         index++;
-        ch = json[index];
+        //ch = json[index];
         newToken->type = JsonLexer::TokenType::String;
         newToken->end = json + index - 1;
         newToken->code = STR_CODE;
