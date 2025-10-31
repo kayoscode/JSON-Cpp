@@ -1,10 +1,12 @@
 #ifndef INCLUDE_JSON_FILE_H
 #define INCLUDE_JSON_FILE_H
 
+#include "JsonNode.h"
+
+#include <cstdint>
 #include <string>
 #include <ostream>
 #include <fstream>
-#include "JsonNode.h"
 
 class JsonFile {
     public:

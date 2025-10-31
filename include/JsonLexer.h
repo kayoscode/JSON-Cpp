@@ -1,6 +1,7 @@
 #ifndef INCLUDE_JSON_LEXER_H
 #define INCLUDE_JSON_LEXER_H
 
+#include <cstdint>
 #include <string>
 #include <iostream>
 

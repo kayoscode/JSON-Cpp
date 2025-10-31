@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 4.0)
 
 SET(PROJ_NAME JSON-Cpp)
 project(${PROJ_NAME})

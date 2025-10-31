@@ -4,6 +4,8 @@
 #include "JsonLexer.h"
 #include "JsonNode.h"
 
+#include <cstdint>
+
 class JsonParser {
     public:
         JsonParser(char* json, uint32_t size);
