@@ -1,4 +1,5 @@
 #include "JsonParser.h"
+#include "JsonLexer.h"
 
 static void loadJsonValue(JsonLexer& lexer, JsonLexer::Token* token, JsonValue* value, bool& error);
 static void loadJsonObject(JsonLexer& lexer, JsonLexer::Token* token, JsonObject* obj, bool& error);
@@ -156,7 +157,7 @@ static void loadJsonObject(JsonLexer& lexer, JsonLexer::Token* token, JsonObject
                 delete newValue;
             }
         }
-        else if(token->code == CBRC_CODE) {
+        else if(token->code == CBRC_CODE || token->code == CBRK_CODE) {
             lexer.getNextToken(*token);
             return;
         }

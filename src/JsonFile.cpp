@@ -34,7 +34,7 @@ JsonFile::JsonFile(const std::string& name) :
     }
     else {
         loadSuccessful = true;
-        loadJson(fileContents, size);
+        loadSuccessful = loadJson(fileContents, size);
         delete[] fileContents;
     }
 }
@@ -52,8 +52,8 @@ void JsonFile::save(const std::string& name, bool beautiful) {
     outputFile.close();
 }
 
-void JsonFile::loadJson(char* fileContents, uint32_t size) {
+bool JsonFile::loadJson(char* fileContents, uint32_t size) {
     values = new JsonValue();
     JsonParser parser(fileContents, size);
-    parser.parseJson(values);
+    return !parser.parseJson(values);
 }

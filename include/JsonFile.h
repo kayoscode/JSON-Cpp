@@ -26,7 +26,7 @@ class JsonFile {
         }
 
     private:
-        void loadJson(char* fileContents, uint32_t size);
+        bool loadJson(char* fileContents, uint32_t size);
         JsonValue* values;
         bool loadSuccessful;
 };
