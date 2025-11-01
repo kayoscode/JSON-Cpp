@@ -64,8 +64,6 @@ static void loadJsonValue(JsonLexer& lexer, JsonLexer::Token* token, JsonValue* 
         JsonObject* newObject = new JsonObject();
         loadJsonObject(lexer, token, newObject, error);
         newValue->updateValue(newObject);
-
-        lexer.getNextToken(*token);
         return;
     }
     else if(token->code == OBRK_CODE) {
@@ -121,7 +119,7 @@ static void loadJsonArray(JsonLexer& lexer, JsonLexer::Token* token, JsonArray* 
             }
         }
 
-        if(token->code == CBRC_CODE || token->code == CBRK_CODE) {
+        if(token->code == CBRK_CODE) {
             lexer.getNextToken(*token);
             return;
         }
@@ -157,7 +155,7 @@ static void loadJsonObject(JsonLexer& lexer, JsonLexer::Token* token, JsonObject
                 delete newValue;
             }
         }
-        else if(token->code == CBRC_CODE || token->code == CBRK_CODE) {
+        else if(token->code == CBRC_CODE) {
             lexer.getNextToken(*token);
             return;
         }
