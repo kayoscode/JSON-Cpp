@@ -10,7 +10,7 @@ class JsonParser {
     public:
         JsonParser(char* json, uint32_t size);
 
-        void parseJson(JsonValue* object);
+        bool parseJson(JsonValue* object);
 
         ~JsonParser() {
 
