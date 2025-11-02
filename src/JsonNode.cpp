@@ -36,7 +36,7 @@ JsonValue::JsonValue(const std::string& str)
     type = JsonValueType::String;
 }
 
-JsonValue::JsonValue(int number) 
+JsonValue::JsonValue(int64_t number) 
     :numberValue(number)
 {
     this->type = JsonValueType::Number;
@@ -264,7 +264,7 @@ void JsonValue::updateValue(const std::string& str) {
     }
 }
 
-void JsonValue::updateValue(int integer) {
+void JsonValue::updateValue(int64_t integer) {
     type = JsonValueType::Number;
     numberValue = integer;
 }

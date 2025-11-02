@@ -199,7 +199,7 @@ struct JsonValue {
     /**
      * Initialize with number
      * */
-    JsonValue(int number);
+    JsonValue(int64_t number);
 
     /**
      * Initialize with float
@@ -229,7 +229,7 @@ struct JsonValue {
     void updateValue(JsonObject* object);
     void updateValue(JsonArray* arr);
     void updateValue(const std::string& str);
-    void updateValue(int integer);
+    void updateValue(int64_t integer);
     void updateValue(double flt);
     void updateValue(bool booleanValue, bool isNull);
 
@@ -239,7 +239,7 @@ struct JsonValue {
     JsonObject* objectValue;
     JsonArray* arrayValue;
     std::string stringValue;
-    int numberValue;
+    int64_t numberValue;
     double floatValue;
     bool booleanValue;
     bool isNull;

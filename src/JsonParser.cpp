@@ -29,10 +29,10 @@ static void loadJsonValue(JsonLexer& lexer, JsonLexer::Token* token, JsonValue* 
     else if(token->type == JsonLexer::TokenType::Number) {
         //we already know it's a valid number, so let's just use the lexeme
         char tmp = *token->end;
-        int value;
+        int64_t value;
 
         *token->end = 0;
-        value = std::stoi(token->begin);
+        value = std::stoll(token->begin);
         *token->end = tmp;
 
         newValue->updateValue(value);
