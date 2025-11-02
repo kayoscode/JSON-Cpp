@@ -32,7 +32,7 @@ static void loadJsonValue(JsonLexer& lexer, JsonLexer::Token* token, JsonValue* 
         int64_t value;
 
         *token->end = 0;
-        value = std::stoll(token->begin);
+        value = static_cast<int64_t>(std::stoull(token->begin));
         *token->end = tmp;
 
         newValue->updateValue(value);
